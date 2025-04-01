@@ -7,6 +7,8 @@ export class Session extends BaseModel {
   userId!: string;
   currentToken!: string;
   previousToken?: string;
+  ipAddress?: string
+  userAgent?: string
   expiresAt!: Date;
 
   user?: User;
@@ -19,6 +21,8 @@ export class Session extends BaseModel {
         userId: { type: 'string', format: 'uuid' },
         currentToken: { type: 'string' },
         previousToken: { type: ['string', 'null'] },
+        ipAddress: { type: ['string', 'null'] },
+        userAgent: { type: ['string', 'null'] },
         expiresAt: {
           anyOf: [
             { type: 'string', format: 'date-time' },
