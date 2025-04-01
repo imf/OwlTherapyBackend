@@ -6,24 +6,10 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Aurora API',
+      title: 'Brighten API',
       version: '1.0.0',
-      description: 'API documentation for Aurora Services',
+      description: 'API documentation for Brighten Services',
     },
-    // servers: [
-    //   {
-    //     url: 'https://api.gamelife.com',
-    //     description: 'Production server',
-    //   },
-    //   {
-    //     url: 'http://127.0.0.1:4263',
-    //     description: 'Development Server',
-    //   },
-    //   {
-    //     url: 'http://[::1]:4263',
-    //     description: 'Development Server IPv6',
-    //   },
-    // ],
     components: {
       securitySchemes: {
         ChainLinkUserAuth: {
@@ -44,26 +30,6 @@ const swaggerOptions = {
           bearerFormat: 'chainlink UUID',
           description: 'Requires a valid ChainLink token for any user with the "admin" role. Format: "Authorization: ChainLink <UUID token>"',
         },
-        // RequireUser: {
-        //   type: 'apiKey',
-        //   in: 'header',
-        //   name: 'X-API-Key',
-        // },
-        // RequireRole: {
-        //   type: 'apiKey',
-        //   in: 'header',
-        //   name: 'X-API-Key',
-        // },
-        // RequireAdmin: {
-        //   type: 'apiKey',
-        //   in: 'header',
-        //   name: 'X-API-Key',
-        // },
-        // RequireAPIKey: {
-        //   type: 'apiKey',
-        //   in: 'header',
-        //   name: 'X-API-Key',
-        // },
       },
     },
     security: [

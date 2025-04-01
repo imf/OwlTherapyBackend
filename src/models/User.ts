@@ -1,7 +1,5 @@
 import { BaseModel } from './BaseModel'
-import { ApiKey } from './ApiKey'
 import { Role } from './Role'
-import { UserRelationship } from './UserRelationship'
 
 export class User extends BaseModel {
   login?: string
@@ -13,9 +11,7 @@ export class User extends BaseModel {
   dob?: Date
   metadata!: Record<string, any>
 
-  apiKeys?: ApiKey[]
   roles?: Role[]
-  relationships?: UserRelationship[]
 
   static get tableName(): string {
     return 'users'
@@ -61,14 +57,6 @@ export class User extends BaseModel {
 
   static get relationMappings() {
     return {
-      apiKeys: {
-        relation: BaseModel.HasManyRelation,
-        modelClass: ApiKey,
-        join: {
-          from: 'users.id',
-          to: 'api_keys.user_id',
-        },
-      },
       roles: {
         relation: BaseModel.ManyToManyRelation,
         modelClass: Role,
@@ -79,14 +67,6 @@ export class User extends BaseModel {
             to: 'users_in_roles.role_id',
           },
           to: 'roles.id',
-        },
-      },
-      relationships: {
-        relation: BaseModel.HasManyRelation,
-        modelClass: UserRelationship,
-        join: {
-          from: 'users.id',
-          to: 'user_relationships.user_id',
         },
       },
     }

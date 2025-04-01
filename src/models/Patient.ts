@@ -1,34 +1,18 @@
 import { BaseModel } from './BaseModel'
+import { User } from './User'
 
 export class Patient extends BaseModel {
   userId!: string
-
-  name!: {
-    given: string
-    family: string
-    middle?: string
-    full?: string
-  }
-
-  contact!: {
-    phone?: string
-    email?: string
-    address?: string
-  }
-
-  birthDate?: string // ISO 8601 date string
-
+  birthDate?: string
   location!: {
-    country: string // ISO 3166-1 alpha-2
+    country: string
     region?: string
   }
-
   status!: 'pending' | 'active' | 'inactive' | 'archived'
 
   static tableName = 'patients'
 
   static get relationMappings() {
-    const { User } = require('./User')
     return {
       user: {
         relation: BaseModel.BelongsToOneRelation,
@@ -39,26 +23,8 @@ export class Patient extends BaseModel {
   }
 
   static get jsonSchema() {
-    return this.createSchema(['userId', 'name', 'location', 'status'], {
+    return this.createSchema(['userId', 'location', 'status'], {
       userId: { type: 'string', format: 'uuid' },
-      name: {
-        type: 'object',
-        required: ['given', 'family'],
-        properties: {
-          given: { type: 'string' },
-          family: { type: 'string' },
-          middle: { type: 'string' },
-          full: { type: 'string' }
-        }
-      },
-      contact: {
-        type: 'object',
-        properties: {
-          phone: { type: 'string' },
-          email: { type: 'string', format: 'email' },
-          address: { type: 'string' }
-        }
-      },
       birthDate: { type: ['string', 'null'], format: 'date' },
       location: {
         type: 'object',
