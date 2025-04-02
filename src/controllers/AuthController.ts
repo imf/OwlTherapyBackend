@@ -11,7 +11,9 @@ export class AuthController {
     const {
       email,
       login,
-      name,
+      givenName,
+      familyName,
+      profilePhotoUrl,
       password,
       phone,
       metadata,
@@ -35,7 +37,9 @@ export class AuthController {
     const user = await User.query().insert({
       email,
       login,
-      name,
+      givenName,
+      familyName,
+      profilePhotoUrl: profilePhotoUrl,
       phone,
       birthDate,
       country,
