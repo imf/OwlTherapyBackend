@@ -5,21 +5,11 @@ export async function up(knex: Knex): Promise<void> {
   if (!hasTable) return
 
   await knex.schema.alterTable('users_in_roles', (table) => {
-    if (!table.columns.includes('id')) {
-      table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
-    }
-    if (!table.columns.includes('created_at')) {
-      table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
-    }
-    if (!table.columns.includes('updated_at')) {
-      table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
-    }
-    if (!table.columns.includes('deleted_at')) {
-      table.timestamp('deleted_at').nullable()
-    }
-    if (!table.columns.includes('metadata')) {
-      table.jsonb('metadata').notNullable().defaultTo('{}')
-    }
+    table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('deleted_at').nullable()
+    table.jsonb('metadata').notNullable().defaultTo('{}')
   })
 }
 
