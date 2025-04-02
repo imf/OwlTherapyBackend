@@ -1,5 +1,3 @@
--- Migration: create_calendar_sessions_with_telehealth_and_related_tables
-
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
@@ -16,7 +14,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+    table.timestamp('deleted_at').nullable()
     })
     // Billing Rules
     .createTable('billing_rules', (table) => {
@@ -26,7 +24,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     })
     // Billing Rates
     .createTable('billing_rates', (table) => {
@@ -41,7 +39,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     })
     // Therapeutic Relationships
     .createTable('therapeutic_relationships', (table) => {
@@ -52,7 +50,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     })
     // Participants in Relationship
     .createTable('therapeutic_relationship_participants', (table) => {
@@ -63,7 +61,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     })
     // Recurrence Patterns
     .createTable('recurrence_patterns', (table) => {
@@ -79,7 +77,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     })
     // Calendar Sessions
     .createTable('calendar_sessions', (table) => {
@@ -97,7 +95,7 @@ export async function up(knex: Knex): Promise<void> {
       table.jsonb('metadata').notNullable().defaultTo('{}');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
-      table.timestamp('deleted_at');
+      table.timestamp('deleted_at').nullable()
     });
 }
 
