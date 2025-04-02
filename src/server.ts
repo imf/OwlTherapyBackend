@@ -15,6 +15,8 @@ import passwordRoutes from './routes/passwordRoutes';
 import roleRoutes from './routes/roleRoutes';
 import sessionRoutes from './routes/sessionRoutes';
 import tokenRoutes from './routes/tokenRoutes';
+import therapistRoutes from './routes/therapistRoutes';
+import patientRoutes from './routes/patientRoutes';
 import { requestLogger } from './middleware/loggingMiddleware';
 
 const app = express();
@@ -37,6 +39,8 @@ app.use('/password', passwordRoutes);
 app.use('/roles', roleRoutes);
 app.use('/sessions', sessionRoutes);
 app.use('/tokens', tokenRoutes);
+app.use('/therapists', therapistRoutes);
+app.use('/patients', patientRoutes);
 
 
 // redirect / to /api-docs

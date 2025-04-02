@@ -1,0 +1,74 @@
+digraph ERD {
+	fontsize=12 rankdir=LR
+	users [label="users
+- id (PK)
+- email
+- login
+- password_hash
+- given_name
+- family_name
+- profile_photo_url
+- dob
+- metadata" fillcolor=lightblue shape=box style=filled]
+	roles [label="roles
+- id (PK)
+- name
+- description
+- metadata" fillcolor=lightblue shape=box style=filled]
+	users_in_roles [label="users_in_roles
+- id
+- user_id (FK)
+- role_id (FK)
+- metadata
+- created_at
+- updated_at
+- deleted_at" fillcolor=lightgray shape=box style=filled]
+	sessions [label="sessions
+- id (PK)
+- user_id (FK)
+- current_token
+- previous_token
+- expires_at" fillcolor=lightblue shape=box style=filled]
+	tokens [label="tokens
+- id (PK)
+- user_id (FK)
+- session_id (FK)
+- token
+- metadata" fillcolor=lightblue shape=box style=filled]
+	patients [label="patients
+- id (PK)
+- user_id (FK)
+- country
+- region
+- metadata" fillcolor=lightblue shape=box style=filled]
+	therapists [label="therapists
+- id (PK)
+- user_id (FK)
+- bio
+- availability
+- metadata" fillcolor=lightblue shape=box style=filled]
+	therapist_education [label="therapist_education
+- id (PK)
+- therapist_id (FK)
+- degree
+- institution
+- year
+- metadata" fillcolor=lightblue shape=box style=filled]
+	therapist_licenses [label="therapist_licenses
+- id (PK)
+- therapist_id (FK)
+- license_type
+- license_number
+- region
+- country
+- metadata" fillcolor=lightblue shape=box style=filled]
+	users -> users_in_roles [label="1:N"]
+	roles -> users_in_roles [label="1:N"]
+	users -> sessions [label="1:N"]
+	sessions -> tokens [label="1:N"]
+	users -> tokens [label="1:N"]
+	users -> patients [label="1:1?"]
+	users -> therapists [label="1:1?"]
+	therapists -> therapist_education [label="1:N"]
+	therapists -> therapist_licenses [label="1:N"]
+}
