@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
   if (!hasTable) return
 
   await knex.schema.alterTable('users_in_roles', (table) => {
-    table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+    table.uuid('id').notNullable().defaultTo(knex.raw('gen_random_uuid()'))
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('deleted_at').nullable()
