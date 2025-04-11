@@ -1,6 +1,7 @@
 INSTALL_CMD=npm install
 BUILD_CMD=npm run build
 MIGRATE_CMD=npm run migrate:prod
-START_CMD=NODE_ENV=$ENV PORT=$PORT npm start &
+START_CMD=npm start
+TOOLS=node
 DB_TYPE=postgres
 
