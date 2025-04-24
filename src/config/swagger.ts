@@ -6,9 +6,9 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Brighten API',
+      title: 'Owl Therapy API',
       version: '1.0.0',
-      description: 'API documentation for Brighten Services',
+      description: 'API documentation for Owl Therapy Services',
     },
     components: {
       securitySchemes: {
