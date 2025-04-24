@@ -9,6 +9,7 @@ import { corsOptions } from './config/cors';
 import healthRoutes from './routes/healthRoutes';
 import { useChainLink } from './middleware/useChainLink';
 // import useChainLinkTransactionRoutes from './routes/chainLinkTransactionRoutes';
+import { requestLogger } from './middleware/loggingMiddleware';
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import passwordRoutes from './routes/passwordRoutes';
@@ -17,7 +18,13 @@ import sessionRoutes from './routes/sessionRoutes';
 import tokenRoutes from './routes/tokenRoutes';
 import therapistRoutes from './routes/therapistRoutes';
 import patientRoutes from './routes/patientRoutes';
-import { requestLogger } from './middleware/loggingMiddleware';
+import calendarSessionRoutes from './routes/calendarSessionRoutes'
+import recurrencePatternRoutes from './routes/recurrencePatternRoutes'
+import therapeuticRelationshipRoutes from './routes/therapeuticRelationshipRoutes'
+import therapeuticRelationshipParticipantRoutes from './routes/therapeuticRelationshipParticipantRoutes'
+import billingRateRoutes from './routes/billingRateRoutes'
+
+
 
 const app = express();
 const hostname = process.env.HOST || "localhost"
@@ -41,6 +48,11 @@ app.use('/sessions', sessionRoutes);
 app.use('/tokens', tokenRoutes);
 app.use('/therapists', therapistRoutes);
 app.use('/patients', patientRoutes);
+app.use('/calendar-sessions', calendarSessionRoutes)
+app.use('/recurrence-patterns', recurrencePatternRoutes)
+app.use('/therapeutic-relationships', therapeuticRelationshipRoutes)
+app.use('/therapeutic-relationship-participants', therapeuticRelationshipParticipantRoutes)
+app.use('/billing-rates', billingRateRoutes)
 
 
 // redirect / to /api-docs
