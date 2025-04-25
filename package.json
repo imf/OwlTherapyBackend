@@ -1,7 +1,7 @@
 {
-  "name": "brigten-backend",
+  "name": "owl-therapy-backend",
   "version": "1.0.0",
-  "description": "Simple REST backend for Brigten",
+  "description": "Simple REST backend for Owl Therapy",
   "main": "dist/server.js",
   "scripts": {
     "start": "ts-node src/server.ts",
