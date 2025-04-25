@@ -1,7 +1,7 @@
 {
-  "name": "owl-health-backend",
+  "name": "owl-therapy-backend",
   "version": "1.0.0",
-  "description": "Simple REST backend for Owl Health",
+  "description": "Simple REST backend for Owl Therapy",
   "main": "dist/server.js",
   "scripts": {
     "start": "ts-node src/server.ts",
