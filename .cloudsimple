@@ -3,4 +3,6 @@ BUILD_CMD=npm run build
 MIGRATE_CMD=npm run migrate:prod
 START_CMD=NODE_ENV=$ENV PORT=$PORT npm start &
 DB_TYPE=postgres
+TOOLS=node
+ENV_NODE_ENV=production
 
