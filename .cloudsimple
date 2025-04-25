@@ -1,4 +1,5 @@
 INSTALL_CMD=npm install
+CLEAN_CMD=rm -rf node_modules; rm -rf package-lock.json; npm cache clean --force
 BUILD_CMD=npm run build
 MIGRATE_CMD=npm run migrate:prod
 START_CMD=NODE_ENV=$ENV PORT=$PORT npm start &
