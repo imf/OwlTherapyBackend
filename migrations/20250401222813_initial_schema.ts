@@ -62,6 +62,37 @@ export async function up(knex: Knex): Promise<void> {
     table.jsonb('metadata').defaultTo('{}')
   })
 
+  // Type tables (replacing ENUMs)
+  await knex.schema.createTable('patient_statuses', (table) => {
+    table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
+    table.string('name').notNullable().unique()
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('deleted_at').nullable()
+  })
+
+  await knex('patient_statuses').insert([
+    { id: knex.raw('gen_random_uuid()'), name: 'pending' },
+    { id: knex.raw('gen_random_uuid()'), name: 'active' },
+    { id: knex.raw('gen_random_uuid()'), name: 'inactive' },
+    { id: knex.raw('gen_random_uuid()'), name: 'archived' },
+  ])
+
+  await knex.schema.createTable('license_statuses', (table) => {
+    table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
+    table.string('name').notNullable().unique()
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
+    table.timestamp('deleted_at').nullable()
+  })
+
+  await knex('license_statuses').insert([
+    { id: knex.raw('gen_random_uuid()'), name: 'active' },
+    { id: knex.raw('gen_random_uuid()'), name: 'inactive' },
+    { id: knex.raw('gen_random_uuid()'), name: 'expired' },
+    { id: knex.raw('gen_random_uuid()'), name: 'revoked' },
+  ])
+
   // Patients
   await knex.schema.createTable('patients', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
@@ -69,10 +100,8 @@ export async function up(knex: Knex): Promise<void> {
     table.date('birth_date')
     table.string('country', 2).notNullable()
     table.string('region')
-    table.enu('status', ['pending', 'active', 'inactive', 'archived'], {
-      useNative: true,
-      enumName: 'patient_status'
-    }).notNullable()
+    table.string('patient_status').notNullable()
+    table.foreign('patient_status').references('name').inTable('patient_statuses').onDelete('RESTRICT')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('deleted_at').nullable()
@@ -112,10 +141,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('license_title').notNullable()
     table.string('license_number').notNullable()
     table.string('issuing_state').notNullable()
-    table.enu('status', ['active', 'inactive', 'expired', 'revoked'], {
-      useNative: true,
-      enumName: 'license_status'
-    }).notNullable()
+    table.string('license_status').notNullable()
+    table.foreign('license_status').references('name').inTable('license_statuses').onDelete('RESTRICT')
     table.date('issue_date')
     table.date('expiration_date')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
@@ -130,11 +157,11 @@ export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('therapist_education')
   await knex.schema.dropTableIfExists('therapists')
   await knex.schema.dropTableIfExists('patients')
+  await knex.schema.dropTableIfExists('license_statuses')
+  await knex.schema.dropTableIfExists('patient_statuses')
   await knex.schema.dropTableIfExists('tokens')
   await knex.schema.dropTableIfExists('sessions')
+  await knex.schema.dropTableIfExists('user_roles')
   await knex.schema.dropTableIfExists('roles')
   await knex.schema.dropTableIfExists('users')
-
-  await knex.raw('DROP TYPE IF EXISTS patient_status')
-  await knex.raw('DROP TYPE IF EXISTS license_status')
 }
