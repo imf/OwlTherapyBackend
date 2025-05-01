@@ -2,8 +2,13 @@ INSTALL_CMD=npm install
 CLEAN_CMD=rm -rf node_modules; rm -rf package-lock.json; npm cache clean --force
 BUILD_CMD=npm run build
 MIGRATE_CMD=npm run migrate:prod
-START_CMD=NODE_ENV=$ENV PORT=$PORT npm start &
+OLD_START_CMD=NODE_ENV=$ENV PORT=$PORT npm start &
+START_CMD=npm start
+
 DB_TYPE=postgres
 TOOLS=node
-# ENV_NODE_ENV=production
+ENV_NODE_ENV=production
+ENV_NODE_ENV_INSTALL=development
+ENV_NODE_ENV_BUILD=production
+ENV_NODE_ENV_MIGRATE=production
 
