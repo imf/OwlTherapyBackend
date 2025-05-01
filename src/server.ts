@@ -23,6 +23,7 @@ import recurrencePatternRoutes from './routes/recurrencePatternRoutes'
 import therapeuticRelationshipRoutes from './routes/therapeuticRelationshipRoutes'
 import therapeuticRelationshipParticipantRoutes from './routes/therapeuticRelationshipParticipantRoutes'
 import billingRateRoutes from './routes/billingRateRoutes'
+import therapySessionRoutes from './routes/therapySessionRoutes'
 
 
 
@@ -53,6 +54,7 @@ app.use('/recurrence-patterns', recurrencePatternRoutes)
 app.use('/therapeutic-relationships', therapeuticRelationshipRoutes)
 app.use('/therapeutic-relationship-participants', therapeuticRelationshipParticipantRoutes)
 app.use('/billing-rates', billingRateRoutes)
+app.use('/therapy-sessions', therapySessionRoutes)
 
 
 // redirect / to /api-docs
