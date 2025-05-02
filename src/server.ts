@@ -25,6 +25,7 @@ import therapeuticRelationshipParticipantRoutes from './routes/therapeuticRelati
 import billingRateRoutes from './routes/billingRateRoutes'
 import therapySessionRoutes from './routes/therapySessionRoutes'
 import { surveyRoutes } from './routes/surveyRoutes';
+import { questionRoutes } from './routes/questionRoutes';
 
 
 
@@ -57,6 +58,7 @@ app.use('/therapeutic-relationship-participants', therapeuticRelationshipPartici
 app.use('/billing-rates', billingRateRoutes)
 app.use('/therapy-sessions', therapySessionRoutes)
 app.use('/surveys', surveyRoutes)
+app.use('/questions', questionRoutes)
 
 
 // redirect / to /api-docs
