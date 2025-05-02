@@ -12,9 +12,9 @@ export class SurveyController {
 
   static async get(req: Request, res: Response): Promise<void> {
     const { id } = req.params
-    const survey = await Survey.query()
+    const survey = (await Survey.query()
       .findById(id)
-      .withGraphFetched('questions') as Survey & { questions: Question[] }
+      .withGraphFetched('questions')) as Survey & { questions: Question[] }
 
     if (!survey) {
       res.status(404).json({ error: 'Survey not found' })
@@ -33,7 +33,10 @@ export class SurveyController {
   static async update(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     const { title, description } = req.body
-    const survey = await Survey.query().patchAndFetchById(id, { title, description })
+    const survey = await Survey.query().patchAndFetchById(id, {
+      title,
+      description,
+    })
 
     if (!survey) {
       res.status(404).json({ error: 'Survey not found' })
@@ -45,7 +48,7 @@ export class SurveyController {
 
   static async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params
-    const survey = await Survey.query().findById(id) as Survey
+    const survey = (await Survey.query().findById(id)) as Survey
 
     if (!survey) {
       res.status(404).json({ error: 'Survey not found' })

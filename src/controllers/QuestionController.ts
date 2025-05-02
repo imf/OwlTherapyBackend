@@ -11,7 +11,7 @@ export class QuestionController {
       text,
       questionType,
       order,
-      components
+      components,
     })
     res.status(201).json(question)
   }
@@ -23,7 +23,7 @@ export class QuestionController {
       text,
       questionType,
       order,
-      components
+      components,
     })
 
     if (!question) {
@@ -36,7 +36,7 @@ export class QuestionController {
 
   static async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params
-    const question = await Question.query().findById(id) as Question
+    const question = (await Question.query().findById(id)) as Question
 
     if (!question) {
       res.status(404).json({ error: 'Question not found' })

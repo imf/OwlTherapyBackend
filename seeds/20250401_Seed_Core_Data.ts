@@ -14,8 +14,12 @@ export async function seed(knex: Knex): Promise<void> {
 
   const roles = [
     { id: uuidv4(), name: 'admin', description: 'System administrator' },
-    { id: uuidv4(), name: 'therapist', description: 'Licensed mental health provider' },
-    { id: uuidv4(), name: 'patient', description: 'Registered patient' }
+    {
+      id: uuidv4(),
+      name: 'therapist',
+      description: 'Licensed mental health provider',
+    },
+    { id: uuidv4(), name: 'patient', description: 'Registered patient' },
   ]
   await knex('roles').insert(roles)
 
@@ -29,7 +33,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'fake-hash-ian',
       given_name: 'Ian',
       family_name: 'McFarland',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -38,7 +42,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'fake-hash-laurence',
       given_name: 'Laurence',
       family_name: 'Girard',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -47,7 +51,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash1',
       given_name: 'Carol',
       family_name: 'Nguyen',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -56,7 +60,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash2',
       given_name: 'Jordan',
       family_name: 'Lee',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -65,7 +69,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash3',
       given_name: 'Sam',
       family_name: 'Chen',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -74,7 +78,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash4',
       given_name: 'Melissa',
       family_name: 'Greenberg',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -83,7 +87,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash5',
       given_name: 'Alex',
       family_name: 'Brown',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -92,7 +96,7 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash6',
       given_name: 'Taylor',
       family_name: 'Singh',
-      metadata: {}
+      metadata: {},
     },
     {
       id: uuidv4(),
@@ -101,12 +105,12 @@ export async function seed(knex: Knex): Promise<void> {
       password_hash: 'hash7',
       given_name: 'Jamie',
       family_name: 'Kim',
-      metadata: {}
-    }
+      metadata: {},
+    },
   ]
   await knex('users').insert(users)
 
-  const userMap = Object.fromEntries(users.map(u => [u.login, u]))
+  const userMap = Object.fromEntries(users.map((u) => [u.login, u]))
 
   await knex('users_in_roles').insert([
     { user_id: userMap['ian'].id, role_id: adminRole.id },
@@ -118,7 +122,7 @@ export async function seed(knex: Knex): Promise<void> {
     { user_id: userMap['nv-patient'].id, role_id: patientRole.id },
     { user_id: userMap['ny-patient'].id, role_id: patientRole.id },
     { user_id: userMap['dual-role'].id, role_id: therapistRole.id },
-    { user_id: userMap['dual-role'].id, role_id: patientRole.id }
+    { user_id: userMap['dual-role'].id, role_id: patientRole.id },
   ])
 
   // Follow with therapists, licenses, education, patients, sessions, tokens...
