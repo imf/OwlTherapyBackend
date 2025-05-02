@@ -5,6 +5,10 @@ import { TherapistEducation } from './TherapistEducation';
 
 export class Therapist extends BaseModel {
   userId!: string
+  npiNumber?: string
+  // caqhNumber?: string
+  // caqhStatus?: string
+  // caqhLastUpdated?: Date
   specialties?: string[]
   bio?: string
 
@@ -34,6 +38,7 @@ export class Therapist extends BaseModel {
   static get jsonSchema() {
     return this.createSchema(['userId'], {
       userId: { type: 'string', format: 'uuid' },
+      npiNumber: { type: ['string', 'null'] },
       specialties: { type: ['array', 'null'], items: { type: 'string' } },
       bio: { type: ['string', 'null'] }
     })
