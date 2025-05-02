@@ -14,7 +14,7 @@ export const surveyResponseRoutes = Router()
  *     tags:
  *       - Survey Responses
  *     security:
- *       - ChainLinkSessionAuth: []
+ *       - ChainLinkUserAuth: []
  *     requestBody:
  *       required: true
  *       content:

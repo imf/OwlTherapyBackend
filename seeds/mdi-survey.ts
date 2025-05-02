@@ -1,15 +1,15 @@
 import { Knex } from 'knex'
 
 export async function seed(knex: Knex): Promise<void> {
-    const surveyId = '2df6ba6a-5580-425a-8717-c83a357d036a'
-    const existing = await knex('surveys').where({ id: surveyId }).first()
-  
-    if (existing) {
-      console.log('Survey already exists, skipping seed:', surveyId)
-      return
-    }
+  const surveyId = '2df6ba6a-5580-425a-8717-c83a357d036a'
+  const existing = await knex('surveys').where({ id: surveyId }).first()
 
-    await knex('surveys').insert({
+  if (existing) {
+    console.log('Survey already exists, skipping seed:', surveyId)
+    return
+  }
+
+  await knex('surveys').insert({
     id: '2df6ba6a-5580-425a-8717-c83a357d036a',
     title: 'MDI',
     description: 'Major Depression Inventory',

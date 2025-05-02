@@ -9,6 +9,8 @@ export class SurveyResponse extends BaseModel {
 
   surveyId!: string
   userId!: string
+  survey?: Survey
+  answers?: Answer[]
 
   static get jsonSchema() {
     return this.createSchema(['surveyId', 'userId'], {
