@@ -1,28 +1,21 @@
 import { SurveyResponse } from '../../models/SurveyResponse'
-import { phq9Score } from './scorers/phq9'
-import { mdiScore } from './scorers/mdi'
-import { gbiScore } from './scorers/gbi'
-import { Answer } from '../../models/Answer'
-import { Survey } from '../../models/Survey'
 
 export async function scoreSurveyResponse(
-  response: SurveyResponse,
-): Promise<any> {
-  if (!response.survey || !response.answers) {
-    throw new Error(
-      'scoreSurveyResponse requires answers and survey to be loaded',
-    )
+  response: SurveyResponse
+): Promise<Record<string, any>> {
+  if (!response.survey) {
+    throw new Error('Survey must be loaded on SurveyResponse')
   }
-  const surveyTitle = response.survey.title
+  
+  const file = response.survey.metadata?.scorer_file
+  if (!file) throw new Error('Missing `scorer_file` in survey metadata')
 
-  switch (surveyTitle) {
-    case 'PHQ-9':
-      return phq9Score(response)
-    case 'MDI':
-      return mdiScore(response)
-    case 'GBI':
-      return gbiScore(response)
-    default:
-      throw new Error(`No scoring rule defined for survey: ${surveyTitle}`)
+  const mod = await import(`./scorers/${file}`)
+  const scorer = mod.default
+
+  if (typeof scorer !== 'function') {
+    throw new Error(`Scorer in ${file} does not export a default function`)
   }
+
+  return scorer(response)
 }
