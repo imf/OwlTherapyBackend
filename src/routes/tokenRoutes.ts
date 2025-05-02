@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { TokenController } from '../controllers/TokenController';
-import { asyncHandler } from '../middleware/asyncHandler';
-import { requireAdmin } from '../middleware/requireAdmin';
+import { Router } from 'express'
+import { TokenController } from '../controllers/TokenController'
+import { asyncHandler } from '../middleware/asyncHandler'
+import { requireAdmin } from '../middleware/requireAdmin'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -26,7 +26,7 @@ const router = Router();
  *       200:
  *         description: Array of tokens
  */
-router.get('/', requireAdmin, asyncHandler(TokenController.list));
+router.get('/', requireAdmin, asyncHandler(TokenController.list))
 
 /**
  * @openapi
@@ -46,6 +46,6 @@ router.get('/', requireAdmin, asyncHandler(TokenController.list));
  *       204:
  *         description: Token expired
  */
-router.delete('/:id', requireAdmin, asyncHandler(TokenController.expire));
+router.delete('/:id', requireAdmin, asyncHandler(TokenController.expire))
 
-export default router;
+export default router

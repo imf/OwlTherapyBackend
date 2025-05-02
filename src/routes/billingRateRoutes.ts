@@ -17,7 +17,11 @@ const router = Router()
  *       200:
  *         description: List of billing rate
  */
-router.get('/', requireRole('scheduler'), asyncHandler(BillingRateController.list))
+router.get(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(BillingRateController.list),
+)
 
 /**
  * @openapi
@@ -40,7 +44,11 @@ router.get('/', requireRole('scheduler'), asyncHandler(BillingRateController.lis
  *       404:
  *         description: Not found
  */
-router.get('/:id', requireRole('scheduler'), asyncHandler(BillingRateController.get))
+router.get(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(BillingRateController.get),
+)
 
 /**
  * @openapi
@@ -60,7 +68,11 @@ router.get('/:id', requireRole('scheduler'), asyncHandler(BillingRateController.
  *       201:
  *         description: Created
  */
-router.post('/', requireRole('scheduler'), asyncHandler(BillingRateController.create))
+router.post(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(BillingRateController.create),
+)
 
 /**
  * @openapi
@@ -89,7 +101,11 @@ router.post('/', requireRole('scheduler'), asyncHandler(BillingRateController.cr
  *       404:
  *         description: Not found
  */
-router.put('/:id', requireRole('scheduler'), asyncHandler(BillingRateController.update))
+router.put(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(BillingRateController.update),
+)
 
 /**
  * @openapi
@@ -112,6 +128,10 @@ router.put('/:id', requireRole('scheduler'), asyncHandler(BillingRateController.
  *       404:
  *         description: Not found
  */
-router.delete('/:id', requireRole('scheduler'), asyncHandler(BillingRateController.remove))
+router.delete(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(BillingRateController.remove),
+)
 
 export default router

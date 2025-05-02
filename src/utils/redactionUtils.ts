@@ -59,7 +59,7 @@ export const redactJson = (input: unknown): unknown => {
         key.toLowerCase() === 'password'
           ? [key, '*****']
           : [key, redactJson(value)],
-      )
+      ),
     )
   }
 

@@ -15,8 +15,8 @@ export class TherapistEducation extends BaseModel {
       therapist: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: Therapist,
-        join: { from: 'therapist_education.therapistId', to: 'therapists.id' }
-      }
+        join: { from: 'therapist_education.therapistId', to: 'therapists.id' },
+      },
     }
   }
 
@@ -29,7 +29,7 @@ export class TherapistEducation extends BaseModel {
         fieldOfStudy: { type: 'string' },
         institution: { type: 'string' },
         graduationYear: { type: ['integer', 'null'] },
-      }
+      },
     )
   }
 }

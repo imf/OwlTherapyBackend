@@ -34,8 +34,7 @@ export const baseApiKey = process.env.BASE_API_KEY || ''
 
 export const adminKey = process.env.ADMIN_KEY || null
 
-export const PEPPER =
-  process.env.PEPPER || 'default-aeadf384ec1496d82f9'
+export const PEPPER = process.env.PEPPER || 'default-aeadf384ec1496d82f9'
 
 // Overwrite process.env variables with those from the .env file
 if (configuration.parsed) {

@@ -4,7 +4,11 @@ export class AthenaClient {
   private readonly clientId: string
   private readonly clientSecret: string
 
-  constructor(config: { baseUrl: string; clientId: string; clientSecret: string }) {
+  constructor(config: {
+    baseUrl: string
+    clientId: string
+    clientSecret: string
+  }) {
     this.baseUrl = config.baseUrl
     this.clientId = config.clientId
     this.clientSecret = config.clientSecret

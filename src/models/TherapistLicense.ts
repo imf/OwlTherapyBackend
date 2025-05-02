@@ -17,14 +17,20 @@ export class TherapistLicense extends BaseModel {
       therapist: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: Therapist,
-        join: { from: 'therapist_licenses.therapistId', to: 'therapists.id' }
-      }
+        join: { from: 'therapist_licenses.therapistId', to: 'therapists.id' },
+      },
     }
   }
 
   static get jsonSchema() {
     return this.createSchema(
-      ['therapistId', 'licenseTitle', 'licenseNumber', 'issuingState', 'status'],
+      [
+        'therapistId',
+        'licenseTitle',
+        'licenseNumber',
+        'issuingState',
+        'status',
+      ],
       {
         therapistId: { type: 'string', format: 'uuid' },
         licenseTitle: { type: 'string' },
@@ -36,7 +42,7 @@ export class TherapistLicense extends BaseModel {
         },
         issueDate: { type: ['string', 'null'], format: 'date' },
         expirationDate: { type: ['string', 'null'], format: 'date' },
-      }
+      },
     )
   }
 }

@@ -1,12 +1,12 @@
-import { v4 as uuidv4 } from 'uuid';
-import crypto from 'crypto';
+import { v4 as uuidv4 } from 'uuid'
+import crypto from 'crypto'
 // import { Tenant } from '../models/Tenant';
 
 /**
  * Generate a short, random nonce.
  */
 export function generateNonce(): string {
-  return crypto.randomBytes(3).toString('hex'); // 6-character hex string
+  return crypto.randomBytes(3).toString('hex') // 6-character hex string
 }
 
 // /**
@@ -22,29 +22,34 @@ export function generateNonce(): string {
  * @param token The token to validate.
  * @returns `{ valid: boolean, tenantIdentifier?: string, nonce?: string, transactionId?: string }`
  */
-export function validateTransactionToken(token: string): { valid: boolean; tenantIdentifier?: string; nonce?: string; transactionId?: string } {
-  const parts = token.split(':');
+export function validateTransactionToken(token: string): {
+  valid: boolean
+  tenantIdentifier?: string
+  nonce?: string
+  transactionId?: string
+} {
+  const parts = token.split(':')
 
   if (parts.length !== 3) {
-    return { valid: false };
+    return { valid: false }
   }
 
-  const [tenantIdentifier, nonce, transactionId] = parts;
+  const [tenantIdentifier, nonce, transactionId] = parts
 
   // ✅ Ensure tenant identifier is alphanumeric and not empty
   if (!/^[a-zA-Z0-9_-]+$/.test(tenantIdentifier)) {
-    return { valid: false };
+    return { valid: false }
   }
 
   // ✅ Ensure nonce is a 6-character hex string
   if (!/^[a-f0-9]{6}$/.test(nonce)) {
-    return { valid: false };
+    return { valid: false }
   }
 
   // ✅ Ensure transactionId is a valid UUID
   if (!/^[0-9a-fA-F-]{36}$/.test(transactionId)) {
-    return { valid: false };
+    return { valid: false }
   }
 
-  return { valid: true, tenantIdentifier, nonce, transactionId };
+  return { valid: true, tenantIdentifier, nonce, transactionId }
 }

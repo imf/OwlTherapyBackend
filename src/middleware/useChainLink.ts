@@ -12,7 +12,7 @@ import { generateToken } from '../utils/tokenUtils'
 export async function useChainLink(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   const token = getToken(req.header('authorization'))
 
@@ -21,13 +21,20 @@ export async function useChainLink(
     return next()
   }
 
-  const session = await Session.query()
-    .findOne(builder =>
-      builder.where('current_token', token).orWhere('previous_token', token)
+  const session = (await Session.query()
+    .findOne((builder) =>
+      builder.where('current_token', token).orWhere('previous_token', token),
     )
-    .withGraphFetched('user.roles') as Session & { user: User & { roles: Role[] } }
+    .withGraphFetched('user.roles')) as Session & {
+    user: User & { roles: Role[] }
+  }
 
-  if (!session || session.deletedAt || session.expiresAt < new Date() || !session.user) {
+  if (
+    !session ||
+    session.deletedAt ||
+    session.expiresAt < new Date() ||
+    !session.user
+  ) {
     // console.debug(`Session not found or expired for token: ${token}: session: ${session}`)
     clearContext(req)
     return next()
@@ -61,12 +68,12 @@ export async function useChainLink(
  */
 function setContext(
   req: Request,
-  session: Session & { user: User & { roles: Role[] } }
+  session: Session & { user: User & { roles: Role[] } },
 ): void {
   ;(req as any).context = {
     session,
     user: session.user,
-    roles: session.user.roles?.map(r => r.name) ?? [],
+    roles: session.user.roles?.map((r) => r.name) ?? [],
   }
 }
 
@@ -101,7 +108,9 @@ function getToken(authHeader?: string): string | undefined {
  * Rotate Token
  * This function is used to rotate the token and expire the old key.
  */
-export async function rotateToken(session: Session): Promise<Session | undefined> {
+export async function rotateToken(
+  session: Session,
+): Promise<Session | undefined> {
   if (!session) {
     return undefined
   }
@@ -119,4 +128,3 @@ export async function rotateToken(session: Session): Promise<Session | undefined
 
   return updatedSession
 }
-

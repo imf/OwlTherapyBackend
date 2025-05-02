@@ -17,9 +17,13 @@ export class BaseModel extends Model {
       required,
       properties: {
         id: { type: 'string', format: 'uuid' },
-        createdAt: { anyOf: [{ type: 'string', format: 'date-time' }, { type: 'object' }] },
-        updatedAt: { anyOf: [{ type: 'string', format: 'date-time' }, { type: 'object' }] },
-          deletedAt: {
+        createdAt: {
+          anyOf: [{ type: 'string', format: 'date-time' }, { type: 'object' }],
+        },
+        updatedAt: {
+          anyOf: [{ type: 'string', format: 'date-time' }, { type: 'object' }],
+        },
+        deletedAt: {
           anyOf: [
             { type: 'string', format: 'date-time' },
             { type: 'object' },

@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { AuthController } from '../controllers/AuthController';
+import { Router } from 'express'
+import { AuthController } from '../controllers/AuthController'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -29,7 +29,7 @@ const router = Router();
  *       409: { description: "Login or email already registered." }
  *       500: { description: "Unexpected error" }
  */
-router.post('/signup', AuthController.signup);
+router.post('/signup', AuthController.signup)
 
 /**
  * @openapi
@@ -45,7 +45,7 @@ router.post('/signup', AuthController.signup);
  *             type: object
  *             required: [identifier, password]
  *             properties:
- *               identifier: 
+ *               identifier:
  *                  type: string
  *                  description: "User identifier, which can be either an email or a username."
  *                  example: "user@example.com or login/username"
@@ -58,6 +58,6 @@ router.post('/signup', AuthController.signup);
  *       401: { description: "Invalid credentials" }
  *       500: { description: "Unexpected error" }
  */
-router.post('/login', AuthController.login);
+router.post('/login', AuthController.login)
 
-export default router;
+export default router

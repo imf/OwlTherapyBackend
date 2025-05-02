@@ -16,19 +16,22 @@ const swaggerOptions = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'chainlink UUID',
-          description: 'Requires a valid ChainLink token for any logged-in user. Format: "Authorization: ChainLink <UUID token>"',
+          description:
+            'Requires a valid ChainLink token for any logged-in user. Format: "Authorization: ChainLink <UUID token>"',
         },
         ChainLinkRoleAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'chainlink UUID',
-          description: 'Requires a valid ChainLink token for any user with specified role. Format: "Authorization: ChainLink <UUID token>"',
+          description:
+            'Requires a valid ChainLink token for any user with specified role. Format: "Authorization: ChainLink <UUID token>"',
         },
         ChainLinkAdminAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'chainlink UUID',
-          description: 'Requires a valid ChainLink token for any user with the "admin" role. Format: "Authorization: ChainLink <UUID token>"',
+          description:
+            'Requires a valid ChainLink token for any user with the "admin" role. Format: "Authorization: ChainLink <UUID token>"',
         },
       },
     },
@@ -39,10 +42,7 @@ const swaggerOptions = {
       { RequireAPIKey: [] },
     ], // Apply globally if needed
   },
-  apis: [
-    './src/routes/**/*.ts',
-    './src/controllers/**/*.ts',
-  ],
+  apis: ['./src/routes/**/*.ts', './src/controllers/**/*.ts'],
 }
 
 // console.debug('Swagger matched files:', glob.sync('./src/**/*.ts'))

@@ -15,6 +15,10 @@ const router = Router()
  *     security:
  *        - ChainLinkRoleAuth: []
  */
-router.post('/:id/push-to-ehr', requireRole('EHRAdmin'), asyncHandler(TherapySessionController.pushSession))
+router.post(
+  '/:id/push-to-ehr',
+  requireRole('EHRAdmin'),
+  asyncHandler(TherapySessionController.pushSession),
+)
 
 export default router

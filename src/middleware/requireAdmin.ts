@@ -1,3 +1,3 @@
-import { requireRole } from './requireRole';
+import { requireRole } from './requireRole'
 
-export const requireAdmin = requireRole('admin');
+export const requireAdmin = requireRole('admin')

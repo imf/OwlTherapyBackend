@@ -17,7 +17,11 @@ const router = Router()
  *       200:
  *         description: List of recurrence pattern
  */
-router.get('/', requireRole('scheduler'), asyncHandler(RecurrencePatternController.list))
+router.get(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(RecurrencePatternController.list),
+)
 
 /**
  * @openapi
@@ -40,7 +44,11 @@ router.get('/', requireRole('scheduler'), asyncHandler(RecurrencePatternControll
  *       404:
  *         description: Not found
  */
-router.get('/:id', requireRole('scheduler'), asyncHandler(RecurrencePatternController.get))
+router.get(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(RecurrencePatternController.get),
+)
 
 /**
  * @openapi
@@ -60,7 +68,11 @@ router.get('/:id', requireRole('scheduler'), asyncHandler(RecurrencePatternContr
  *       201:
  *         description: Created
  */
-router.post('/', requireRole('scheduler'), asyncHandler(RecurrencePatternController.create))
+router.post(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(RecurrencePatternController.create),
+)
 
 /**
  * @openapi
@@ -89,7 +101,11 @@ router.post('/', requireRole('scheduler'), asyncHandler(RecurrencePatternControl
  *       404:
  *         description: Not found
  */
-router.put('/:id', requireRole('scheduler'), asyncHandler(RecurrencePatternController.update))
+router.put(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(RecurrencePatternController.update),
+)
 
 /**
  * @openapi
@@ -112,6 +128,10 @@ router.put('/:id', requireRole('scheduler'), asyncHandler(RecurrencePatternContr
  *       404:
  *         description: Not found
  */
-router.delete('/:id', requireRole('scheduler'), asyncHandler(RecurrencePatternController.remove))
+router.delete(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(RecurrencePatternController.remove),
+)
 
 export default router

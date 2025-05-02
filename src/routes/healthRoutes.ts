@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { healthCheckHandler } from '../controllers/healthController';
+import { Router } from 'express'
+import { healthCheckHandler } from '../controllers/healthController'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ const router = Router();
  *                         type: string
  *                         example: "ok"
  */
-router.get('/health', healthCheckHandler);
+router.get('/health', healthCheckHandler)
 
-export default router;
+export default router

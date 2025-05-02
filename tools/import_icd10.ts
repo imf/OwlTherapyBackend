@@ -15,7 +15,8 @@ const xmlFilePath = path.resolve(__dirname, '../data/icd10cm_tabular_2025.xml')
 function collectNotes(elem: any, tag: string): string[] {
   const tagObj = elem?.[tag]
   if (!tagObj) return []
-  if (Array.isArray(tagObj.note)) return tagObj.note.map((n: any) => n['#text'] || n)
+  if (Array.isArray(tagObj.note))
+    return tagObj.note.map((n: any) => n['#text'] || n)
   if (tagObj.note) return [tagObj.note['#text'] || tagObj.note]
   return []
 }
@@ -25,7 +26,7 @@ function walkDiags(
   chapterCode: string,
   chapterTitle: string,
   blockCode: string,
-  blockTitle: string
+  blockTitle: string,
 ): any[] {
   const results: any[] = []
 
@@ -58,9 +59,19 @@ function walkDiags(
 
     const nested = diag.diag
     if (Array.isArray(nested)) {
-      results.push(...walkDiags(nested, chapterCode, chapterTitle, blockCode, blockTitle))
+      results.push(
+        ...walkDiags(nested, chapterCode, chapterTitle, blockCode, blockTitle),
+      )
     } else if (nested && typeof nested === 'object') {
-      results.push(...walkDiags([nested], chapterCode, chapterTitle, blockCode, blockTitle))
+      results.push(
+        ...walkDiags(
+          [nested],
+          chapterCode,
+          chapterTitle,
+          blockCode,
+          blockTitle,
+        ),
+      )
     }
   }
 
@@ -72,11 +83,15 @@ async function main() {
 
   if (existingCount > 0) {
     if (process.env.FORCE === '1') {
-      console.warn(`[WARN] Found ${existingCount} existing ICD-10 codes. FORCE=1 detected — deleting...`)
+      console.warn(
+        `[WARN] Found ${existingCount} existing ICD-10 codes. FORCE=1 detected — deleting...`,
+      )
       await ICD10Code.query().delete()
       console.log(`[INFO] Existing ICD-10 codes deleted.`)
     } else {
-      console.error(`[ABORT] ICD-10 codes already exist in the database (${existingCount} rows).`)
+      console.error(
+        `[ABORT] ICD-10 codes already exist in the database (${existingCount} rows).`,
+      )
       console.error(`        Set FORCE=1 to delete and reimport.`)
       process.exit(1)
     }
@@ -93,7 +108,8 @@ async function main() {
   const parsed = parser.parse(xml)
 
   const chapters = parsed['ICD10CM.tabular']?.chapter
-  if (!chapters) throw new Error('Invalid XML structure: no <chapter> elements found.')
+  if (!chapters)
+    throw new Error('Invalid XML structure: no <chapter> elements found.')
 
   const rows: any[] = []
 
@@ -110,7 +126,9 @@ async function main() {
       if (!diagSet) continue
 
       const diags = Array.isArray(diagSet) ? diagSet : [diagSet]
-      rows.push(...walkDiags(diags, chapterCode, chapterTitle, blockCode, blockTitle))
+      rows.push(
+        ...walkDiags(diags, chapterCode, chapterTitle, blockCode, blockTitle),
+      )
     }
   }
 
@@ -121,15 +139,18 @@ async function main() {
       const chunk = rows.slice(i, i + chunkSize)
 
       // Diagnostic check
-      const bad = chunk.find(row =>
-        typeof row.chapterCode !== 'string' && row.chapterCode !== null
+      const bad = chunk.find(
+        (row) =>
+          typeof row.chapterCode !== 'string' && row.chapterCode !== null,
       )
       if (bad) {
         console.error('[DEBUG] Bad row:', JSON.stringify(bad, null, 2))
         throw new Error('Found invalid row before insert')
       }
 
-      console.log(`[INFO] Inserting chunk ${i / chunkSize + 1} of ${Math.ceil(rows.length / chunkSize)}`)
+      console.log(
+        `[INFO] Inserting chunk ${i / chunkSize + 1} of ${Math.ceil(rows.length / chunkSize)}`,
+      )
       await ICD10Code.query(trx).insert(chunk)
     }
   })

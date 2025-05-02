@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { SessionController } from '../controllers/SessionController';
-import { requireChainLink } from '../middleware/requireChainLink';
+import { Router } from 'express'
+import { SessionController } from '../controllers/SessionController'
+import { requireChainLink } from '../middleware/requireChainLink'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -16,7 +16,7 @@ const router = Router();
  *       200:
  *         description: Array of session objects
  */
-router.get('/', requireChainLink, SessionController.list);
+router.get('/', requireChainLink, SessionController.list)
 
 /**
  * @openapi
@@ -30,6 +30,6 @@ router.get('/', requireChainLink, SessionController.list);
  *       204:
  *         description: Session revoked
  */
-router.delete('/:id', requireChainLink, SessionController.revoke);
+router.delete('/:id', requireChainLink, SessionController.revoke)
 
-export default router;
+export default router

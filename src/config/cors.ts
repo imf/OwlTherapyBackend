@@ -19,10 +19,7 @@ export const corsOptions = {
       callback(new Error(`Not allowed by CORS: ${origin}`))
     }
   },
-  exposedHeaders: [
-    'X-Next-ChainLink-Token', 
-    'X-Trace-Id'
-  ],
+  exposedHeaders: ['X-Next-ChainLink-Token', 'X-Trace-Id'],
 }
 
 console.debug(`CORS allowed origins: ${allowedOrigins}`)

@@ -1,7 +1,7 @@
-import type { Knex } from 'knex';
-import './src/config/env';
+import type { Knex } from 'knex'
+import './src/config/env'
 
-type Environment = 'development' | 'test' | 'production' | 'playground';
+type Environment = 'development' | 'test' | 'production' | 'playground'
 
 const getConfig = (env: Environment): Knex.Config => ({
   client: 'pg', // Change client to PostgreSQL
@@ -11,7 +11,7 @@ const getConfig = (env: Environment): Knex.Config => ({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    ...(env === 'production' ? { ssl: { rejectUnauthorized: true } } : {}), // No SSL for dev/test 
+    ...(env === 'production' ? { ssl: { rejectUnauthorized: true } } : {}), // No SSL for dev/test
   },
   migrations: {
     directory: './migrations',
@@ -26,10 +26,10 @@ const getConfig = (env: Environment): Knex.Config => ({
     min: 2,
     max: 10, // Adjust as needed
   },
-});
+})
 
 export default {
   development: getConfig('development'),
   test: getConfig('test'),
   production: getConfig('production'),
-} as const;
+} as const
