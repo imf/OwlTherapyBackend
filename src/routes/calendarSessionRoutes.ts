@@ -17,7 +17,11 @@ const router = Router()
  *       200:
  *         description: List of calendar session
  */
-router.get('/', requireRole('scheduler'), asyncHandler(CalendarSessionController.list))
+router.get(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(CalendarSessionController.list),
+)
 
 /**
  * @openapi
@@ -40,7 +44,11 @@ router.get('/', requireRole('scheduler'), asyncHandler(CalendarSessionController
  *       404:
  *         description: Not found
  */
-router.get('/:id', requireRole('scheduler'), asyncHandler(CalendarSessionController.get))
+router.get(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(CalendarSessionController.get),
+)
 
 /**
  * @openapi
@@ -60,7 +68,11 @@ router.get('/:id', requireRole('scheduler'), asyncHandler(CalendarSessionControl
  *       201:
  *         description: Created
  */
-router.post('/', requireRole('scheduler'), asyncHandler(CalendarSessionController.create))
+router.post(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(CalendarSessionController.create),
+)
 
 /**
  * @openapi
@@ -89,7 +101,11 @@ router.post('/', requireRole('scheduler'), asyncHandler(CalendarSessionControlle
  *       404:
  *         description: Not found
  */
-router.put('/:id', requireRole('scheduler'), asyncHandler(CalendarSessionController.update))
+router.put(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(CalendarSessionController.update),
+)
 
 /**
  * @openapi
@@ -112,6 +128,10 @@ router.put('/:id', requireRole('scheduler'), asyncHandler(CalendarSessionControl
  *       404:
  *         description: Not found
  */
-router.delete('/:id', requireRole('scheduler'), asyncHandler(CalendarSessionController.remove))
+router.delete(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(CalendarSessionController.remove),
+)
 
 export default router

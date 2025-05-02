@@ -35,7 +35,10 @@ export class TherapistController {
 
   static async update(req: Request, res: Response) {
     try {
-      const result = await Therapist.query().patchAndFetchById(req.params.id, req.body)
+      const result = await Therapist.query().patchAndFetchById(
+        req.params.id,
+        req.body,
+      )
       if (!result) return res.status(404).json({ error: 'Not found' })
       res.json(result)
     } catch (err) {

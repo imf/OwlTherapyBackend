@@ -49,7 +49,10 @@ export class User extends BaseModel {
     const now = new Date()
     const dob = new Date(this.dob)
     const age = now.getFullYear() - dob.getFullYear()
-    if (now.getMonth() < dob.getMonth() || (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate())) {
+    if (
+      now.getMonth() < dob.getMonth() ||
+      (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate())
+    ) {
       return age - 1
     }
     return age

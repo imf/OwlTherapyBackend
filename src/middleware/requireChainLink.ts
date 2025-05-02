@@ -4,7 +4,7 @@ import { RequestWithContext } from '../types/RequestWithContext'
 export function requireChainLink(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   if (!(req as RequestWithContext).context?.session) {
     res.status(401).json({ error: 'Unauthorized: No valid ChainLink session.' })

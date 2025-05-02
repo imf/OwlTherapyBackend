@@ -13,13 +13,16 @@ export class EncryptionKey extends BaseModel {
   }
 
   static get jsonSchema() {
-    return this.createSchema(['provider', 'externalId', 'keyType', 'isActive'], {
-      provider: { type: 'string' },
-      externalId: { type: 'string' },
-      publicKey: { type: ['string', 'null'] },
-      keyType: { type: 'string' },
-      isActive: { type: 'boolean' },
-      metadata: { type: 'object' },
-    })
+    return this.createSchema(
+      ['provider', 'externalId', 'keyType', 'isActive'],
+      {
+        provider: { type: 'string' },
+        externalId: { type: 'string' },
+        publicKey: { type: ['string', 'null'] },
+        keyType: { type: 'string' },
+        isActive: { type: 'boolean' },
+        metadata: { type: 'object' },
+      },
+    )
   }
 }

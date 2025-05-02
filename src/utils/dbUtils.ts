@@ -36,7 +36,9 @@ export const today = (): string => {
  * Returns MySQL-formatted timestamp string for X hours in the future
  */
 export const futureDateMySQL = (hours: number): string => {
-  return toMySQLTimestamp(new Date(Date.now() + hours * 60 * 60 * 1000)) as string
+  return toMySQLTimestamp(
+    new Date(Date.now() + hours * 60 * 60 * 1000),
+  ) as string
 }
 
 /**
@@ -61,13 +63,13 @@ export const convertDate = (dateString: string | null): String | null => {
     throw new Error('Invalid date format')
   }
 
-  const paddedMonth = month.padStart(2, '0');
-  const paddedDay = day.padStart(2, '0');
-  const formattedDate = `${year}-${paddedMonth}-${paddedDay}`;
-  
-  // Ensure it's a real date
-  const isValidDate = !isNaN(Date.parse(formattedDate));
-  if (!isValidDate) throw new Error('Invalid date value');
+  const paddedMonth = month.padStart(2, '0')
+  const paddedDay = day.padStart(2, '0')
+  const formattedDate = `${year}-${paddedMonth}-${paddedDay}`
 
-  return formattedDate;
+  // Ensure it's a real date
+  const isValidDate = !isNaN(Date.parse(formattedDate))
+  if (!isValidDate) throw new Error('Invalid date value')
+
+  return formattedDate
 }

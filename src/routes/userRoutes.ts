@@ -1,10 +1,10 @@
-import express from 'express';
-import UserController from '../controllers/UserController';
-import { asyncHandler } from '../middleware/asyncHandler';
-import { requireAdmin } from '../middleware/requireAdmin';
-import { requireChainLink } from '../middleware/requireChainLink';
+import express from 'express'
+import UserController from '../controllers/UserController'
+import { asyncHandler } from '../middleware/asyncHandler'
+import { requireAdmin } from '../middleware/requireAdmin'
+import { requireChainLink } from '../middleware/requireChainLink'
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * @openapi
@@ -30,7 +30,6 @@ const router = express.Router();
  *           type: string
  *           format: date-time
  */
-
 
 /**
  * @openapi
@@ -67,7 +66,7 @@ const router = express.Router();
  *       201:
  *         description: User created
  */
-router.post('/', requireAdmin, asyncHandler(UserController.createUser));
+router.post('/', requireAdmin, asyncHandler(UserController.createUser))
 
 /**
  * @openapi
@@ -90,7 +89,7 @@ router.post('/', requireAdmin, asyncHandler(UserController.createUser));
  *       404:
  *         description: User not found
  */
-router.get('/:userId', requireChainLink, asyncHandler(UserController.getUser));
+router.get('/:userId', requireChainLink, asyncHandler(UserController.getUser))
 
 /**
  * @openapi
@@ -112,8 +111,11 @@ router.get('/:userId', requireChainLink, asyncHandler(UserController.getUser));
  *       404:
  *         description: User not found
  */
-router.get('/by-login/:login', requireChainLink, asyncHandler(UserController.getUserByLogin));
-
+router.get(
+  '/by-login/:login',
+  requireChainLink,
+  asyncHandler(UserController.getUserByLogin),
+)
 
 /**
  * @openapi
@@ -127,7 +129,7 @@ router.get('/by-login/:login', requireChainLink, asyncHandler(UserController.get
  *       200:
  *         description: List of users
  */
-router.get('/', requireAdmin, UserController.getAllUsers);
+router.get('/', requireAdmin, UserController.getAllUsers)
 
 /**
  * @openapi
@@ -171,7 +173,7 @@ router.get('/', requireAdmin, UserController.getAllUsers);
  *       404:
  *         description: User not found
  */
-router.patch('/:userId', requireAdmin, UserController.updateUser);
+router.patch('/:userId', requireAdmin, UserController.updateUser)
 
 /**
  * @openapi
@@ -194,7 +196,7 @@ router.patch('/:userId', requireAdmin, UserController.updateUser);
  *       404:
  *         description: User not found
  */
-router.delete('/:userId', requireAdmin, UserController.deleteUser);
+router.delete('/:userId', requireAdmin, UserController.deleteUser)
 
 /**
  * @openapi
@@ -240,7 +242,6 @@ router.delete('/:userId', requireAdmin, UserController.deleteUser);
  *                   type: string
  *                   example: "johndoe1"
  */
-router.post('/check-login', asyncHandler(UserController.checkLogin));
+router.post('/check-login', asyncHandler(UserController.checkLogin))
 
-
-export default router;
+export default router

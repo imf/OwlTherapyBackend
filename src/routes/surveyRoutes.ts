@@ -122,4 +122,8 @@ surveyRoutes.delete('/:id', requireAdmin, SurveyController.delete)
  *       201:
  *         description: Created
  */
-surveyRoutes.post('/:surveyId/questions', requireAdmin, QuestionController.create)
+surveyRoutes.post(
+  '/:surveyId/questions',
+  requireAdmin,
+  QuestionController.create,
+)

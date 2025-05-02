@@ -17,8 +17,8 @@ export class Patient extends BaseModel {
       user: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: User,
-        join: { from: 'patients.userId', to: 'users.id' }
-      }
+        join: { from: 'patients.userId', to: 'users.id' },
+      },
     }
   }
 
@@ -31,13 +31,13 @@ export class Patient extends BaseModel {
         required: ['country'],
         properties: {
           country: { type: 'string', minLength: 2, maxLength: 2 },
-          region: { type: 'string' }
-        }
+          region: { type: 'string' },
+        },
       },
       status: {
         type: 'string',
-        enum: ['pending', 'active', 'inactive', 'archived']
-      }
+        enum: ['pending', 'active', 'inactive', 'archived'],
+      },
     })
   }
 }

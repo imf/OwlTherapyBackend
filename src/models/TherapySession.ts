@@ -1,6 +1,6 @@
-import { BaseModel } from './BaseModel';
-import { User } from './User';
-import { Therapist } from './Therapist';
+import { BaseModel } from './BaseModel'
+import { User } from './User'
+import { Therapist } from './Therapist'
 import { Patient } from './Patient'
 
 export class TherapySession extends BaseModel {
@@ -18,12 +18,11 @@ export class TherapySession extends BaseModel {
   static tableName = 'therapy_sessions'
 
   static get relationMappings() {
-
     return {
       therapist: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: Therapist,
-        join: { from: 'therapists.userId', to: 'users.id' }
+        join: { from: 'therapists.userId', to: 'users.id' },
       },
       clients: {
         relation: BaseModel.ManyToManyRelation,
@@ -33,11 +32,11 @@ export class TherapySession extends BaseModel {
           through: {
             from: 'clients_therapy_sessions.therapySessionId',
             to: 'clients_therapy_sessions.clientId',
-            extra: ['createdAt']
+            extra: ['createdAt'],
           },
-          to: 'users.id'
-        }
-      }
+          to: 'users.id',
+        },
+      },
     }
   }
 

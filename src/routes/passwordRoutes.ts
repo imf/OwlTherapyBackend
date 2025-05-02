@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { PasswordController } from '../controllers/PasswordController';
-import { asyncHandler } from '../middleware/asyncHandler';
+import { Router } from 'express'
+import { PasswordController } from '../controllers/PasswordController'
+import { asyncHandler } from '../middleware/asyncHandler'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -23,7 +23,7 @@ const router = Router();
  *       200:
  *         description: Email sent if account exists
  */
-router.post('/reset-password', asyncHandler(PasswordController.requestReset));
+router.post('/reset-password', asyncHandler(PasswordController.requestReset))
 
 /**
  * @openapi
@@ -46,6 +46,9 @@ router.post('/reset-password', asyncHandler(PasswordController.requestReset));
  *       200:
  *         description: Password successfully updated
  */
-router.post("/reset-password/confirm", asyncHandler(PasswordController.confirmReset));
+router.post(
+  '/reset-password/confirm',
+  asyncHandler(PasswordController.confirmReset),
+)
 
-export default router;
+export default router

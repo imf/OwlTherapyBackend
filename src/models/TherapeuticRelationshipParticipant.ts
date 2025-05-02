@@ -11,11 +11,14 @@ export class TherapeuticRelationshipParticipant extends BaseModel {
   }
 
   static get jsonSchema() {
-    return this.createSchema(['relationshipId', 'userId', 'therapeuticRoleCode'], {
-      relationshipId: { type: 'string', format: 'uuid' },
-      userId: { type: 'string', format: 'uuid' },
-      therapeuticRoleCode: { type: 'string', maxLength: 16 },
-      metadata: { type: 'object' },
-    })
+    return this.createSchema(
+      ['relationshipId', 'userId', 'therapeuticRoleCode'],
+      {
+        relationshipId: { type: 'string', format: 'uuid' },
+        userId: { type: 'string', format: 'uuid' },
+        therapeuticRoleCode: { type: 'string', maxLength: 16 },
+        metadata: { type: 'object' },
+      },
+    )
   }
 }

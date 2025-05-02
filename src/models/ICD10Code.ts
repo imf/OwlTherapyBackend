@@ -20,7 +20,7 @@ export class ICD10Code extends BaseModel {
       chapterTitle: { type: ['string', 'null'] },
       blockCode: { type: ['string', 'null'] },
       blockTitle: { type: ['string', 'null'] },
-      })
+    })
   }
 
   static get relationMappings() {

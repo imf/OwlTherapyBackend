@@ -1,9 +1,14 @@
 import config from '../config/config'
 
-export const generateToken = (context: string, tenant?: string, length: number = 43): string => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+export const generateToken = (
+  context: string,
+  tenant?: string,
+  length: number = 43,
+): string => {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const environment = config.environment
-  let token;
+  let token
   if (!tenant) {
     token = `${context}:${environment}:`
   } else {

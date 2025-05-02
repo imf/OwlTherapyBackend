@@ -47,7 +47,13 @@ export class Role extends BaseModel {
         },
         modify: (builder: QueryBuilder<User>) => {
           builder.modify('notDeleted') // Apply the existing "notDeleted" modifier
-          builder.select('users.id', 'login', 'email', 'givenName', 'familyName') // Exclude passwordHash inline
+          builder.select(
+            'users.id',
+            'login',
+            'email',
+            'givenName',
+            'familyName',
+          ) // Exclude passwordHash inline
         },
       },
     }

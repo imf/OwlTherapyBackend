@@ -29,15 +29,30 @@ export async function up(knex: Knex): Promise<void> {
   })
 
   await knex.schema.createTable('user_roles', (table) => {
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE')
-    table.uuid('role_id').notNullable().references('id').inTable('roles').onDelete('CASCADE')
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
+    table
+      .uuid('role_id')
+      .notNullable()
+      .references('id')
+      .inTable('roles')
+      .onDelete('CASCADE')
     table.primary(['user_id', 'role_id'])
   })
 
   // Sessions
   await knex.schema.createTable('sessions', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE')
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
     table.string('current_token').notNullable()
     table.string('previous_token')
     table.timestamp('expires_at').notNullable()
@@ -52,7 +67,12 @@ export async function up(knex: Knex): Promise<void> {
   // Tokens
   await knex.schema.createTable('tokens', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE')
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
     table.string('token').notNullable().unique()
     table.string('type').notNullable()
     table.timestamp('expires_at')
@@ -96,12 +116,21 @@ export async function up(knex: Knex): Promise<void> {
   // Patients
   await knex.schema.createTable('patients', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE')
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
     table.date('birth_date')
     table.string('country', 2).notNullable()
     table.string('region')
     table.string('patient_status').notNullable()
-    table.foreign('patient_status').references('name').inTable('patient_statuses').onDelete('RESTRICT')
+    table
+      .foreign('patient_status')
+      .references('name')
+      .inTable('patient_statuses')
+      .onDelete('RESTRICT')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now())
     table.timestamp('deleted_at').nullable()
@@ -111,7 +140,12 @@ export async function up(knex: Knex): Promise<void> {
   // Therapists
   await knex.schema.createTable('therapists', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE')
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
     table.text('bio')
     table.specificType('specialties', 'text[]')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
@@ -123,7 +157,12 @@ export async function up(knex: Knex): Promise<void> {
   // Therapist Education
   await knex.schema.createTable('therapist_education', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('therapist_id').notNullable().references('id').inTable('therapists').onDelete('CASCADE')
+    table
+      .uuid('therapist_id')
+      .notNullable()
+      .references('id')
+      .inTable('therapists')
+      .onDelete('CASCADE')
     table.string('institution').notNullable()
     table.string('degree').notNullable()
     table.string('field_of_study').notNullable()
@@ -137,12 +176,21 @@ export async function up(knex: Knex): Promise<void> {
   // Therapist Licenses
   await knex.schema.createTable('therapist_licenses', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
-    table.uuid('therapist_id').notNullable().references('id').inTable('therapists').onDelete('CASCADE')
+    table
+      .uuid('therapist_id')
+      .notNullable()
+      .references('id')
+      .inTable('therapists')
+      .onDelete('CASCADE')
     table.string('license_title').notNullable()
     table.string('license_number').notNullable()
     table.string('issuing_state').notNullable()
     table.string('license_status').notNullable()
-    table.foreign('license_status').references('name').inTable('license_statuses').onDelete('RESTRICT')
+    table
+      .foreign('license_status')
+      .references('name')
+      .inTable('license_statuses')
+      .onDelete('RESTRICT')
     table.date('issue_date')
     table.date('expiration_date')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())

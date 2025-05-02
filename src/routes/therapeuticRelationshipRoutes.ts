@@ -17,7 +17,11 @@ const router = Router()
  *       200:
  *         description: List of therapeutic relationship
  */
-router.get('/', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipController.list))
+router.get(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(TherapeuticRelationshipController.list),
+)
 
 /**
  * @openapi
@@ -40,7 +44,11 @@ router.get('/', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipCo
  *       404:
  *         description: Not found
  */
-router.get('/:id', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipController.get))
+router.get(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(TherapeuticRelationshipController.get),
+)
 
 /**
  * @openapi
@@ -60,7 +68,11 @@ router.get('/:id', requireRole('scheduler'), asyncHandler(TherapeuticRelationshi
  *       201:
  *         description: Created
  */
-router.post('/', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipController.create))
+router.post(
+  '/',
+  requireRole('scheduler'),
+  asyncHandler(TherapeuticRelationshipController.create),
+)
 
 /**
  * @openapi
@@ -89,7 +101,11 @@ router.post('/', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipC
  *       404:
  *         description: Not found
  */
-router.put('/:id', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipController.update))
+router.put(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(TherapeuticRelationshipController.update),
+)
 
 /**
  * @openapi
@@ -112,6 +128,10 @@ router.put('/:id', requireRole('scheduler'), asyncHandler(TherapeuticRelationshi
  *       404:
  *         description: Not found
  */
-router.delete('/:id', requireRole('scheduler'), asyncHandler(TherapeuticRelationshipController.remove))
+router.delete(
+  '/:id',
+  requireRole('scheduler'),
+  asyncHandler(TherapeuticRelationshipController.remove),
+)
 
 export default router

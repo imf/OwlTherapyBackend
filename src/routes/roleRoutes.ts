@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { RoleController } from '../controllers/RoleController';
-import { asyncHandler } from '../middleware/asyncHandler';
-import { requireAdmin } from '../middleware/requireAdmin';
+import { Router } from 'express'
+import { RoleController } from '../controllers/RoleController'
+import { asyncHandler } from '../middleware/asyncHandler'
+import { requireAdmin } from '../middleware/requireAdmin'
 
-const router = Router();
+const router = Router()
 
 /**
  * @openapi
@@ -17,7 +17,7 @@ const router = Router();
  *       200:
  *         description: List of roles
  */
-router.get('/', requireAdmin, asyncHandler(RoleController.list));
+router.get('/', requireAdmin, asyncHandler(RoleController.list))
 
 /**
  * @openapi
@@ -28,7 +28,7 @@ router.get('/', requireAdmin, asyncHandler(RoleController.list));
  *     security:
  *       - ChainLinkAdminAuth: []
  */
-router.post('/', requireAdmin, asyncHandler(RoleController.create));
+router.post('/', requireAdmin, asyncHandler(RoleController.create))
 
 /**
  * @openapi
@@ -39,7 +39,7 @@ router.post('/', requireAdmin, asyncHandler(RoleController.create));
  *     security:
  *       - ChainLinkAdminAuth: []
  */
-router.put('/:id', requireAdmin, asyncHandler(RoleController.update));
+router.put('/:id', requireAdmin, asyncHandler(RoleController.update))
 
 /**
  * @openapi
@@ -50,7 +50,7 @@ router.put('/:id', requireAdmin, asyncHandler(RoleController.update));
  *     security:
  *       - ChainLinkAdminAuth: []
  */
-router.delete('/:id', requireAdmin, asyncHandler(RoleController.remove));
+router.delete('/:id', requireAdmin, asyncHandler(RoleController.remove))
 
 /**
  * @openapi
@@ -61,7 +61,11 @@ router.delete('/:id', requireAdmin, asyncHandler(RoleController.remove));
  *     security:
  *       - ChainLinkAdminAuth: []
  */
-router.post('/:id/users/:userId', requireAdmin, asyncHandler(RoleController.addUser));
+router.post(
+  '/:id/users/:userId',
+  requireAdmin,
+  asyncHandler(RoleController.addUser),
+)
 
 /**
  * @openapi
@@ -72,6 +76,10 @@ router.post('/:id/users/:userId', requireAdmin, asyncHandler(RoleController.addU
  *     security:
  *       - ChainLinkAdminAuth: []
  */
-router.delete('/:id/users/:userId', requireAdmin, asyncHandler(RoleController.removeUser));
+router.delete(
+  '/:id/users/:userId',
+  requireAdmin,
+  asyncHandler(RoleController.removeUser),
+)
 
-export default router;
+export default router

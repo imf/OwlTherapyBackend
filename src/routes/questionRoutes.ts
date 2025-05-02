@@ -24,7 +24,7 @@ export const questionRoutes = Router()
 questionRoutes.post(
   '/:surveyId/questions',
   requireAdmin,
-  QuestionController.create
+  QuestionController.create,
 )
 
 /**
