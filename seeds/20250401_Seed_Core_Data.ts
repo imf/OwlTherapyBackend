@@ -2,6 +2,13 @@ import { Knex } from 'knex'
 import { v4 as uuidv4 } from 'uuid'
 
 export async function seed(knex: Knex): Promise<void> {
+  const existingRoles = await knex('roles').select('id').limit(1)
+
+  // If roles already exist, politely skip seeding.
+  if (existingRoles.length > 0) {
+    console.log('User and role Seeder has already run, skipping.')
+    return
+  }
   await knex('users_in_roles').del()
   await knex('therapist_licenses').del()
   await knex('therapist_education').del()

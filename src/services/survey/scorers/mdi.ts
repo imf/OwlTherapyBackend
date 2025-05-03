@@ -4,11 +4,16 @@ import { Question } from '../../../models/Question'
 
 interface MdiDiagnosis {
   rawScore: number
-  diagnosis: 'No Depression' | 'Mild Depression' | 'Moderate Depression' | 'Severe Depression' | 'Unclear'
+  diagnosis:
+    | 'No Depression'
+    | 'Mild Depression'
+    | 'Moderate Depression'
+    | 'Severe Depression'
+    | 'Unclear'
   icd10Code?: 'F32.0' | 'F32.1' | 'F32.2'
 }
 
-export function mdiScore(response: SurveyResponse): MdiDiagnosis {
+export default function mdiScore(response: SurveyResponse): MdiDiagnosis {
   if (!response.answers) throw new Error('MDI scorer requires answers')
   const answers = response.answers as (Answer & { question: Question })[]
 
@@ -31,12 +36,12 @@ export function mdiScore(response: SurveyResponse): MdiDiagnosis {
   const rawScore = allScores.reduce((sum, val) => sum + val, 0)
 
   // Core gating rule
-  if (coreScores.length < 3 || coreScores.some(score => score < 2)) {
+  if (coreScores.length < 3 || coreScores.some((score) => score < 2)) {
     return { rawScore, diagnosis: 'No Depression' }
   }
 
-  const itemCount2plus = allScores.filter(score => score >= 2).length
-  const itemCount3plus = allScores.filter(score => score >= 3).length
+  const itemCount2plus = allScores.filter((score) => score >= 2).length
+  const itemCount3plus = allScores.filter((score) => score >= 3).length
 
   if (itemCount2plus >= 4 && itemCount3plus >= 2) {
     return { rawScore, diagnosis: 'Severe Depression', icd10Code: 'F32.2' }
