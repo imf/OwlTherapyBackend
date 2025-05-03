@@ -1,27 +1,30 @@
 import { Knex } from 'knex'
 
 export async function seed(knex: Knex): Promise<void> {
-    const surveyId = '2df6ba6a-5580-425a-8717-c83a357d036a'
-    const existing = await knex('surveys').where({ id: surveyId }).first()
-  
-    if (existing) {
-      console.log('Survey already exists, skipping seed:', surveyId)
-      return
-    }
+  const surveyId = '2df6ba6a-5580-425a-8717-c83a357d036a'
+  const existing = await knex('surveys').where({ id: surveyId }).first()
 
-    await knex('surveys').insert({
-    id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+  if (existing) {
+    console.log('Survey already exists, skipping seed:', surveyId)
+    return
+  }
+
+  await knex('surveys').insert({
+    id: surveyId,
     title: 'MDI',
     description: 'Major Depression Inventory',
     created_at: '2025-05-02T21:07:27.629573',
     updated_at: '2025-05-02T21:07:27.629573',
     deleted_at: null,
-    metadata: {},
+    metadata: {
+      scorer_file: 'mdi',
+    },
   })
+
   await knex('questions').insert([
     {
       id: '66cdedfa-18a9-4939-859d-579e0fb82ade',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you felt low in spirits or sad?',
       question_type: 'likert',
       order: 1,
@@ -41,11 +44,11 @@ export async function seed(knex: Knex): Promise<void> {
       created_at: '2025-05-02T21:07:27.629573',
       updated_at: '2025-05-02T21:07:27.629573',
       deleted_at: null,
-      metadata: {},
+      metadata: { symptom_class: 'core' },
     },
     {
       id: '745b057e-b796-4660-a8e5-decbe6058e38',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you lost interest in your daily activities?',
       question_type: 'likert',
       order: 2,
@@ -65,11 +68,11 @@ export async function seed(knex: Knex): Promise<void> {
       created_at: '2025-05-02T21:07:27.629573',
       updated_at: '2025-05-02T21:07:27.629573',
       deleted_at: null,
-      metadata: {},
+      metadata: { symptom_class: 'core' },
     },
     {
       id: '429666c4-4cb6-4c05-8422-95136a9c437b',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you felt lacking in energy and strength?',
       question_type: 'likert',
       order: 3,
@@ -89,11 +92,11 @@ export async function seed(knex: Knex): Promise<void> {
       created_at: '2025-05-02T21:07:27.629573',
       updated_at: '2025-05-02T21:07:27.629573',
       deleted_at: null,
-      metadata: {},
+      metadata: { symptom_class: 'core' },
     },
     {
       id: '5a8fdcb7-8dc5-408d-9b8d-3de0c09a01dc',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you felt less self-confident?',
       question_type: 'likert',
       order: 4,
@@ -117,7 +120,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: '9316c351-6cc1-4815-bbca-48c0fc9e5a46',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you had a bad conscience or feelings of guilt?',
       question_type: 'likert',
       order: 5,
@@ -141,7 +144,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: 'd2676d8d-0ef8-45ee-9f98-588032ce8ebd',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: "Have you felt that life wasn't worth living?",
       question_type: 'likert',
       order: 6,
@@ -165,7 +168,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: '5b2b8f9d-3159-4dae-9cdb-0bb0e6eaa772',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you had difficulty concentrating?',
       question_type: 'likert',
       order: 7,
@@ -189,7 +192,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: '79f526be-126d-4044-bf4b-28c4d8008fc5',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you felt very restless?',
       question_type: 'likert',
       order: 8,
@@ -213,7 +216,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: '4ab27b24-f8fd-496f-931f-06e56d3c69e8',
-      survey_id: '2df6ba6a-5580-425a-8717-c83a357d036a',
+      survey_id: surveyId,
       text: 'Have you felt subdued or slowed down?',
       question_type: 'likert',
       order: 9,

@@ -14,7 +14,7 @@ export const surveyResponseRoutes = Router()
  *     tags:
  *       - Survey Responses
  *     security:
- *       - ChainLinkSessionAuth: []
+ *       - ChainLinkUserAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -63,3 +63,62 @@ surveyResponseRoutes.post('/', requireSession, SurveyResponseController.create)
  *         description: Not found
  */
 surveyResponseRoutes.get('/:id', requireAdmin, SurveyResponseController.get)
+
+/**
+ * @openapi
+ * /survey-responses/{id}/score:
+ *   post:
+ *     summary: Score a completed survey response
+ *     tags:
+ *       - Survey Responses
+ *     security:
+ *       - ChainLinkAdminAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Scored and updated SurveyResponse
+ */
+surveyResponseRoutes.post(
+  '/:id/score',
+  requireAdmin,
+  SurveyResponseController.score,
+)
+
+/**
+ * @openapi
+ * /survey-responses/{id}:
+ *   delete:
+ *     summary: Soft delete a submitted survey response
+ *     tags: [Survey Responses]
+ *     security:
+ *       - ChainLinkAdminAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Survey response deleted
+ */
+surveyResponseRoutes.delete('/:id', requireAdmin, SurveyResponseController.delete)
+
+/**
+ * @openapi
+ * /survey-responses:
+ *   get:
+ *     summary: List all submitted survey responses
+ *     tags: [Survey Responses]
+ *     security:
+ *       - ChainLinkAdminAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of survey responses
+ */
+surveyResponseRoutes.get('/', requireAdmin, SurveyResponseController.list)

@@ -4,6 +4,7 @@ import { SurveyResponse } from '../models/SurveyResponse'
 import { Answer } from '../models/Answer'
 import { Question } from '../models/Question'
 import { RequestWithContext } from '../types/RequestWithContext'
+import { scoreSurveyResponse } from '../services/survey/scoreEngine'
 
 export class SurveyResponseController {
   static async create(req: Request, res: Response): Promise<void> {
@@ -49,5 +50,62 @@ export class SurveyResponseController {
     }
 
     res.status(200).json(response)
+  }
+
+  static async score(req: Request, res: Response): Promise<void> {
+    const { id } = req.params
+
+    const response = (await SurveyResponse.query()
+      .findById(id)
+      .withGraphFetched('[survey, answers.question]')) as SurveyResponse & {
+      survey: SurveyResponse['survey']
+      answers: (Answer & { question: Question })[]
+    }
+
+    if (!response) {
+      res.status(404).json({ error: 'Survey response not found' })
+      return
+    }
+
+    try {
+      const score = await scoreSurveyResponse(response)
+
+      await SurveyResponse.query().patchAndFetchById(id, {
+        metadata: {
+          ...response.metadata,
+          score,
+        },
+      })
+
+      const updated = await SurveyResponse.query()
+        .findById(id)
+        .withGraphFetched('[survey, answers.question]')
+
+      res.status(200).json(updated)
+    } catch (err: any) {
+      const status = err?.message?.includes('scorer_file') ? 503 : 500
+      res.status(status).json({ error: err.message })
+    }
+  }
+
+  static async delete(req: Request, res: Response): Promise<void> {
+    const { id } = req.params
+  
+    const response = await SurveyResponse.query().findById(id) as SurveyResponse
+    if (!response) {
+      res.status(404).json({ error: 'Survey response not found' })
+      return
+    }
+  
+    await response.$softDelete()
+    res.status(204).end()
+  }
+  
+  static async list(req: Request, res: Response): Promise<void> {
+    const responses = await SurveyResponse.query()
+      .withGraphFetched('[answers, answers.question, survey]')
+      .orderBy('created_at', 'desc')
+  
+    res.status(200).json(responses)
   }
 }

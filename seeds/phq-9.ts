@@ -18,7 +18,9 @@ export async function seed(knex: Knex): Promise<void> {
     created_at: now,
     updated_at: now,
     deleted_at: null,
-    metadata: {},
+    metadata: {
+      scorer_file: 'phq9',
+    },
   }
 
   const likertLabels = {

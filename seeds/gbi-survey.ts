@@ -16,7 +16,9 @@ export async function seed(knex: Knex): Promise<void> {
     created_at: '2025-05-02T21:07:27.629573',
     updated_at: '2025-05-02T21:07:27.629573',
     deleted_at: null,
-    metadata: {},
+    metadata: {
+      scorer_file: 'gbi',
+    },
   })
   await knex('questions').insert([
     {
